@@ -102,10 +102,10 @@ class MainWindow(QWidget):
             self.plot(self.data, decoded)
 
         elif method == "DCT":
-            compressed = dct_compress(self.data, keep_ratio=0.5)
-            decoded = dct_decompress(compressed)
+            encoded, original_length = dct_compress(self.data, keep_ratio=0.5)
+            decoded = dct_decompress(encoded, original_length=original_length)
 
-            comp_size = size_bytes(compressed)
+            comp_size = size_bytes(encoded)
 
             error = mse(self.data, decoded)
             ratio = compression_ratio(orig_size, comp_size)

@@ -1,1 +1,3 @@
 - huffman: rozmiar po kompresji liczy sam ciąg 0 i 1, bez drzewa
+
+- parametry do wyboru: 

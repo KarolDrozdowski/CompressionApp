@@ -32,13 +32,16 @@ def idct_1d(coeffs):
 def dct_compress(signal, keep_ratio=0.5):
     coeffs = dct_1d(signal)
 
-    # zeroing (kompresja stratna)
-    cutoff = int(len(coeffs) * keep_ratio)
-    compressed = np.zeros_like(coeffs)
-    compressed[:cutoff] = coeffs[:cutoff]
+    N = len(coeffs)
+    cutoff = int(N * keep_ratio)
 
-    return compressed
+    compressed = coeffs[:cutoff].astype(np.float32)
+
+    return compressed, N
 
 
-def dct_decompress(coeffs):
+def dct_decompress(compressed, original_length):
+    coeffs = np.zeros(original_length, dtype=np.float32)
+    coeffs[:len(compressed)] = compressed
+
     return idct_1d(coeffs)
